@@ -44,7 +44,7 @@ const ORACLE_ARGS: Readonly<Record<string, readonly (readonly string[])[]>> = {
   spaceY: [["4"]],
   gap: [["4"], ["x", "4"], ["px", "16"]],
   // Colors
-  bg: [["blue-500"], ["transparent"]],
+  bg: [["blue-500"], ["transparent"], ["cover"], ["top-left"], ["no-repeat"], ["fixed"], ["clip-text"], ["origin-padding"], ["[length:1rem]"], ["[position:right_0.875rem_center]"]],
   // Typography (merged .text() / .font())
   text: [["lg"], ["px", "13"], ["red-500"], ["center"], ["balance"]],
   font: [["semibold"], ["mono"]],
@@ -60,7 +60,7 @@ const ORACLE_ARGS: Readonly<Record<string, readonly (readonly string[])[]>> = {
   minW: [["0"]],
   maxH: [["screen"]],
   minH: [["screen"], ["px", "180"]],
-  aspect: [["video"], ["square"]],
+  aspect: [["video"], ["square"], ["4/5"], ["[4/5]"]],
   // Flexbox (merged .flex())
   flex: [[], ["1"], ["auto"], ["col"], ["row-reverse"], ["wrap"]],
   justify: [["between"], ["center"]],
@@ -96,7 +96,7 @@ const ORACLE_ARGS: Readonly<Record<string, readonly (readonly string[])[]>> = {
   static: [[]],
   z: [["10"]],
   overflow: [["hidden"], ["x", "auto"]],
-  object: [["cover"]],
+  object: [["cover"], ["top"], ["bottom-right"], ["[50%_15%]"]],
   // Layout & Display
   block: [[]],
   inlineBlock: [[]],

@@ -114,7 +114,21 @@ export const classVocab: readonly UtilityDef[] = [
   space("gap", "gap", "-", false, true, { values: theme("--spacing"), doc: "Gap between flex/grid children — both axes or one." }),
 
   // Colors
-  pre("bg", "bg", { values: theme("--color"), doc: "Background color." }),
+  // `.bg()` is merged like `.text()`: color plus the background-image keyword families, all
+  // emitting `bg-*` (disjoint sets). Arbitrary size/position use Tailwind's type hints:
+  // `.bg("[length:1rem]")`, `.bg("[position:right_1rem_center]")`.
+  pre("bg", "bg", {
+    values: group({
+      color: theme("--color"),
+      size: lit("auto", "cover", "contain"),
+      position: lit("top", "bottom", "left", "right", "center", "top-left", "top-right", "bottom-left", "bottom-right"),
+      repeat: lit("repeat", "no-repeat", "repeat-x", "repeat-y", "repeat-round", "repeat-space"),
+      attachment: lit("fixed", "local", "scroll"),
+      clip: lit("clip-border", "clip-padding", "clip-content", "clip-text"),
+      origin: lit("origin-border", "origin-padding", "origin-content"),
+    }),
+    doc: "Background color, size, position, repeat, attachment, clip, or origin: one merged `bg-*` emitter.",
+  }),
 
   // Typography — `.text()` is the canonical merged method: size, color, align,
   // and wrap all emit `text-*` (Tailwind's own overload; unions are disjoint).
@@ -158,7 +172,7 @@ export const classVocab: readonly UtilityDef[] = [
   size("minW", "min-w", { values: ref("TailwindMinWidth"), doc: "Min-width." }),
   size("maxH", "max-h", { values: ref("TailwindMaxHeight"), doc: "Max-height." }),
   size("minH", "min-h", { values: ref("TailwindMinHeight"), doc: "Min-height." }),
-  pre("aspect", "aspect", { values: lit("auto", "square", "video"), doc: "Aspect ratio." }),
+  pre("aspect", "aspect", { values: lit("auto", "square", "video"), doc: "Aspect ratio: a keyword, a ratio (`\"4/5\"`), or `[…]`.", variantObject: vo("TailwindAspect") }),
 
   // Flexbox — `.flex()` is merged: bare container, shorthand value, direction,
   // or wrap, all through the one `flex-*` emitter (disjoint keyword sets).
@@ -218,7 +232,13 @@ export const classVocab: readonly UtilityDef[] = [
   stat("static", "static", { doc: "Static (default) positioning." }),
   pre("z", "z", { values: ref("TailwindZIndex"), doc: "Stacking order." }),
   space("overflow", "overflow", "-", false, false, { values: lit("auto", "hidden", "clip", "visible", "scroll"), doc: "Overflow behavior — both axes or one." }),
-  pre("object", "object", { values: lit("contain", "cover", "fill", "none", "scale-down"), doc: "How replaced content fits its box." }),
+  pre("object", "object", {
+    values: group({
+      fit: lit("contain", "cover", "fill", "none", "scale-down"),
+      position: lit("top", "bottom", "left", "right", "center", "top-left", "top-right", "bottom-left", "bottom-right"),
+    }),
+    doc: "How replaced content fits its box, or where it sits in it: one merged `object-*` emitter.",
+  }),
 
   // Layout & Display — dedicated shortcuts (A-07; `.flex()`/`.grid()`/`.hidden()` cover the rest).
   stat("block", "block", { doc: "Block display." }),

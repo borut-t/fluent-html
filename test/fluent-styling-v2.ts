@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-import { Div, Button, Span, Th, render, Tag } from "../src/index.js";
+import { Div, Button, Span, Th, Img, render, Tag } from "../src/index.js";
 import type { VariantStyleObject } from "../src/index.js";
 
 // C-02: the themeable unions are now CLOSED — undeclared custom strings no longer
@@ -67,6 +67,24 @@ describe("Flexbox & Grid Extensions", () => {
   it("colSpan full", () => { assert.strictEqual(render(Div().colSpan("full")), '<div class="col-span-full"></div>'); });
   it("aspect video", () => { assert.strictEqual(render(Div().aspect("video")), '<div class="aspect-video"></div>'); });
   it("aspect square", () => { assert.strictEqual(render(Div().aspect("square")), '<div class="aspect-square"></div>'); });
+  it("aspect ratio", () => { assert.strictEqual(render(Div().aspect("4/5")), '<div class="aspect-4/5"></div>'); });
+  it("aspect arbitrary", () => { assert.strictEqual(render(Div().aspect("[4/5]")), '<div class="aspect-[4/5]"></div>'); });
+  it("object position", () => { assert.strictEqual(render(Img().object("cover").object("top")), '<img class="object-cover object-top">'); });
+  it("object position arbitrary", () => { assert.strictEqual(render(Img().object("[50%_15%]")), '<img class="object-[50%_15%]">'); });
+  it("bg image keywords", () => {
+    assert.strictEqual(
+      render(Div().bg("cover").bg("center").bg("no-repeat").bg("fixed")),
+      '<div class="bg-cover bg-center bg-no-repeat bg-fixed"></div>',
+    );
+  });
+  it("bg clip text beside a color", () => { assert.strictEqual(render(Span().bg("clip-text").bg("blue-500")), '<span class="bg-clip-text bg-blue-500"></span>'); });
+  it("bg arbitrary size and position via type hints", () => {
+    assert.strictEqual(
+      render(Div().bg("[length:1rem]").bg("[position:right_0.875rem_center]")),
+      '<div class="bg-[length:1rem] bg-[position:right_0.875rem_center]"></div>',
+    );
+  });
+  it("backdrop variant", () => { assert.strictEqual(render(Div().variant("backdrop", { bg: "black/50" })), '<div class="backdrop:bg-black/50"></div>'); });
 });
 
 describe("Spacing Between Children", () => {

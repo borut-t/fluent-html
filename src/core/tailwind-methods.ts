@@ -91,6 +91,13 @@ import type {
   TailwindInsetShadow,
   TailwindMixBlendMode,
   TailwindBgBlendMode,
+  TailwindBgSize,
+  TailwindBgPosition,
+  TailwindBgRepeat,
+  TailwindBgAttachment,
+  TailwindBgClip,
+  TailwindBgOrigin,
+  TailwindObjectPosition,
   TailwindDelay,
   TailwindTransitionBehavior,
   TailwindGradientPosition,
@@ -210,8 +217,8 @@ declare module "./tag.js" {
     mr(value: TailwindSpacing | "auto"): this;
     mr(unit: TailwindUnit, amount: number): this;
 
-    // Colors
-    bg(color: TailwindColor): this;
+    // Background
+    bg(value: TailwindColor | TailwindBgSize | TailwindBgPosition | TailwindBgRepeat | TailwindBgAttachment | TailwindBgClip | TailwindBgOrigin): this;
 
     // Typography
     /**
@@ -304,7 +311,7 @@ declare module "./tag.js" {
     z(value: TailwindZIndex): this;
     overflow(value: TailwindOverflow): this;
     overflow(direction: "x" | "y", value: TailwindOverflow): this;
-    object(value: TailwindObjectFit): this;
+    object(value: TailwindObjectFit | TailwindObjectPosition): this;
 
     // Layout & Display — dedicated shortcuts (`.flex()`/`.grid()`/`.hidden()` already cover flex/grid/none).
     block(): this;
@@ -659,7 +666,7 @@ p.mr = function (unitOrValue: string, amount?: number) {
 
 // Colors
 
-p.bg = function (color: string) { return this.addClass(`bg-${color}`); };
+p.bg = function (value: string) { return this.addClass(`bg-${value}`); };
 
 // Typography
 

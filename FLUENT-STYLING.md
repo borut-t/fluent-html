@@ -113,7 +113,7 @@ The prefix rule has a few deliberate exceptions — worth knowing when deriving 
 .h("screen")  .h("64")              // h-screen, h-64
 .maxW("md")  .maxH("screen")        // max-w-md, max-h-screen
 .minW("0")   .minH("screen")        // min-w-0, min-h-screen
-.aspect("video")                     // aspect-video
+.aspect("video")  .aspect("4/5")    // aspect-video, aspect-4/5 (any w/h ratio; [..] for the rest)
 ```
 
 ### Arbitrary Value Unit Overloads
@@ -136,6 +136,8 @@ Units: `px` `rem` `em` `%` `vh` `vw` `dvh` `svh` `lvh`. Available on: `w`, `h`, 
 
 ```typescript
 .bg("red-500")             // bg-red-500
+.bg("cover").bg("center")  // bg-cover bg-center (one .bg() for size, position, repeat, attachment, clip, origin)
+.bg("[length:1rem]")       // bg-[length:1rem] (arbitrary size; [position:..] for position)
 .text("gray-700")          // text-gray-700
 .border("gray-300")        // border-gray-300
 .ring("blue-300")          // ring-blue-300
@@ -225,6 +227,7 @@ Units: `px` `rem` `em` `%` `vh` `vw` `dvh` `svh` `lvh`. Available on: `w`, `h`, 
 .overflow("hidden")        // overflow-hidden
 .overflow("x", "auto")     // overflow-x-auto
 .object("cover")           // object-cover
+.object("top")             // object-top (positions share the method; .object("[50%_15%]") for the rest)
 .columns("3")              // columns-3 (.breakInside("avoid") keeps a card whole)
 .snap("x", "mandatory")    // snap-x snap-mandatory (.snapAlign("center") on children)
 .scrollM("t", "24")        // scroll-mt-24 (.scrollP(), .scroll("smooth"))

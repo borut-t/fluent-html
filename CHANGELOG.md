@@ -2,6 +2,27 @@
 
 All notable changes to Fluent HTML will be documented in this file.
 
+## [Unreleased] - Background, object-position, aspect-ratio and backdrop vocabulary
+
+Additive only: every call that compiled before still compiles and renders the same class.
+
+### ✨ Added
+
+- **`.bg()` takes the background keyword families beside the color**, like `.text()`: size
+  (`cover`, `contain`, `auto`), position (`center`, `top-left`, …), repeat (`no-repeat`, …),
+  attachment (`fixed`, `local`, `scroll`), clip (`clip-text`, …) and origin (`origin-padding`, …).
+  New unions `TailwindBgSize`, `TailwindBgPosition`, `TailwindBgRepeat`, `TailwindBgAttachment`,
+  `TailwindBgClip`, `TailwindBgOrigin`. Arbitrary size and position keep using Tailwind's type
+  hints through the existing `[…]` arm: `.bg("[length:1rem]")`, `.bg("[position:right_1rem_center]")`.
+- **`.object()` takes positions** (`top`, `center`, `bottom-right`, …, plus `[…]`) beside the fit
+  keywords. New union `TailwindObjectPosition`.
+- **`.aspect()` takes any `w/h` ratio** (`"4/5"` → `aspect-4/5`) and `[…]`. `TailwindAspect` now
+  carries both; the keywords alone are `TailwindAspectKeyword`.
+- **`backdrop` joins `TailwindState`**, so `.variant("backdrop", { bg: "black/50" })` styles a
+  `<dialog>`'s `::backdrop` without an arbitrary selector.
+
+Each new keyword is compiled by the Tailwind 4.3.3 validity oracle (`test/vocab-validity.test.ts`).
+
 ## [8.1.0] - The swap contract becomes a type
 
 A swap verb imposes a target (`#main-content`, or an explicit `Id`) and an outer morph, which

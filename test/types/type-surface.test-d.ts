@@ -368,6 +368,11 @@ Div().stroke("red-500").stroke("2");
 Div().decoration("red-500").decoration("wavy").decoration("2");
 Div().flex().flex("1").flex("col").flex("wrap");
 Div().list("disc").list("inside");
+Div().bg("red-500").bg("cover").bg("top-left").bg("no-repeat").bg("fixed").bg("clip-text").bg("origin-padding");
+Div().object("cover").object("top").object("[50%_15%]");
+Div().aspect("video").aspect("4/5").aspect("[4/5]");
+Div().hover({ bg: "cover", object: "top", aspect: "16/9" });
+Div().variant("backdrop", { bg: "black/50" });
 Div().outline("hidden");
 Div().bgLinear("to-r").bgLinear(45, "oklch");
 Div().px("4").mx("auto").mt("2").pt("px", 12);
@@ -385,6 +390,12 @@ Div().border("wavy");
 Div().flex("center");
 // @ts-expect-error — "outside-in" is not a list value
 Div().list("outside-in");
+// @ts-expect-error — "middle" is not a bg position (it's "center")
+Div().bg("middle");
+// @ts-expect-error — "stretch" is neither an object fit nor an object position
+Div().object("stretch");
+// @ts-expect-error — a ratio is "w/h"; a bare word needs the keywords or [..]
+Div().aspect("wide");
 // @ts-expect-error — margin-only "auto" is rejected on padding shorthands
 Div().px("auto");
 // @ts-expect-error — directional shorthands take the spacing scale, not width keywords

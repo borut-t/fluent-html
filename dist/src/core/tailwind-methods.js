@@ -105,7 +105,7 @@ p.mr = function (unitOrValue, amount) {
     return this.addClass(`mr-${unitOrValue}`);
 };
 // Colors
-p.bg = function (color) { return this.addClass(`bg-${color}`); };
+p.bg = function (value) { return this.addClass(`bg-${value}`); };
 // Typography
 p.text = function (unitOrValue, amount) {
     if (amount !== undefined)

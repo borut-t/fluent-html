@@ -7,7 +7,13 @@ import type {
   TailwindAnimate,
   TailwindAppearance,
   TailwindAspect,
+  TailwindBgAttachment,
   TailwindBgBlendMode,
+  TailwindBgClip,
+  TailwindBgOrigin,
+  TailwindBgPosition,
+  TailwindBgRepeat,
+  TailwindBgSize,
   TailwindBlur,
   TailwindBorderStyle,
   TailwindBorderWidth,
@@ -57,6 +63,7 @@ import type {
   TailwindMinWidth,
   TailwindMixBlendMode,
   TailwindObjectFit,
+  TailwindObjectPosition,
   TailwindOpacity,
   TailwindOrder,
   TailwindOutline,
@@ -139,8 +146,8 @@ export interface StyleProps {
   spaceY?: TailwindSpacing | undefined;
   /** Gap between flex/grid children — both axes or one. */
   gap?: TailwindSpacing | undefined;
-  /** Background color. */
-  bg?: TailwindColor | undefined;
+  /** Background color, size, position, repeat, attachment, clip, or origin: one merged `bg-*` emitter. */
+  bg?: TailwindColor | TailwindBgSize | TailwindBgPosition | TailwindBgRepeat | TailwindBgAttachment | TailwindBgClip | TailwindBgOrigin | undefined;
   /** Text size, color, alignment, or wrapping — one merged `text-*` emitter; arbitrary length via the unit overload. */
   text?: TailwindTextSize | TailwindColor | TailwindTextAlign | TailwindTextWrap | undefined;
   /** Font weight or family — one merged `font-*` emitter. */
@@ -189,7 +196,7 @@ export interface StyleProps {
   maxH?: TailwindMaxHeight | undefined;
   /** Min-height. */
   minH?: TailwindMinHeight | undefined;
-  /** Aspect ratio. */
+  /** Aspect ratio: a keyword, a ratio (`"4/5"`), or `[…]`. */
   aspect?: TailwindAspect | undefined;
   /** Flex container (bare), flex shorthand value, main-axis direction, or wrapping. */
   flex?: true | TailwindFlex | TailwindFlexDirection | TailwindFlexWrap | undefined;
@@ -249,8 +256,8 @@ export interface StyleProps {
   z?: TailwindZIndex | undefined;
   /** Overflow behavior — both axes or one. */
   overflow?: TailwindOverflow | undefined;
-  /** How replaced content fits its box. */
-  object?: TailwindObjectFit | undefined;
+  /** How replaced content fits its box, or where it sits in it: one merged `object-*` emitter. */
+  object?: TailwindObjectFit | TailwindObjectPosition | undefined;
   /** Block display. */
   block?: boolean | undefined;
   /** Inline-block display. */

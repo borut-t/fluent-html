@@ -85,6 +85,15 @@ export type TailwindColor =
   | `${CustomColor}/${number}`   // custom + opacity (e.g. brand/50)
   | `[${string}]`;               // arbitrary value  (e.g. [#1a2b3c])
 
+// Background keyword families, merged into `.bg()` beside the color. Arbitrary size and
+// position go through TailwindColor's `[…]` arm with a type hint: `[length:1rem]`, `[position:…]`.
+@@UNION TailwindBgSize bg.size@@
+@@UNION TailwindBgPosition bg.position@@
+@@UNION TailwindBgRepeat bg.repeat@@
+@@UNION TailwindBgAttachment bg.attachment@@
+@@UNION TailwindBgClip bg.clip@@
+@@UNION TailwindBgOrigin bg.origin@@
+
 // Text size (fontSize family). CLOSED (C-02): custom sizes from FluentCustomFontSize.
 export type TailwindTextSize =
   | "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl"
@@ -140,8 +149,9 @@ export type TailwindGridRows = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 
 // Overflow
 @@UNION TailwindOverflow overflow@@
 
-// Object fit
-@@UNION TailwindObjectFit object@@
+// Object fit and position
+@@UNION TailwindObjectFit object.fit@@
+@@UNION TailwindObjectPosition object.position +arb@@
 
 // Display
 export type TailwindDisplay =
@@ -161,8 +171,9 @@ export type TailwindInset = TailwindSpacing | "auto" | "full" | "1/2" | "1/3" | 
 // Column span — bare numbers beyond 12 via `${number}`; arbitrary via `[…]`.
 export type TailwindColSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "full" | `${number}` | `[${string}]`;
 
-// Aspect ratio
-@@UNION TailwindAspect aspect@@
+// Aspect ratio: keywords from the vocab, any `w/h` ratio (`aspect-4/5`), or `[…]`.
+@@UNION TailwindAspectKeyword aspect@@
+export type TailwindAspect = TailwindAspectKeyword | `${number}/${number}` | `[${string}]`;
 
 // Transitions & Animation
 @@UNION TailwindTransition transition.property@@
@@ -224,7 +235,7 @@ export type TailwindState =
   | "disabled" | "enabled" | "checked" | "indeterminate" | "required" | "invalid" | "valid"
   | "first" | "last" | "odd" | "even" | "empty"
   | "first-of-type" | "last-of-type"
-  | "placeholder" | "selection" | "marker" | "file"
+  | "placeholder" | "selection" | "marker" | "file" | "backdrop"
   | "before" | "after"
   | "dark"
   // v4 (C-06): new states + the `not-*` negation, `supports-[…]` arms

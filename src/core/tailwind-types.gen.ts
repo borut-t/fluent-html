@@ -88,6 +88,17 @@ export type TailwindColor =
   | `${CustomColor}/${number}`   // custom + opacity (e.g. brand/50)
   | `[${string}]`;               // arbitrary value  (e.g. [#1a2b3c])
 
+// Background keyword families, merged into `.bg()` beside the color. Arbitrary size and
+// position go through TailwindColor's `[…]` arm with a type hint: `[length:1rem]`, `[position:…]`.
+export type TailwindBgSize = "auto" | "cover" | "contain";
+export type TailwindBgPosition =
+  | "top" | "bottom" | "left" | "right" | "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
+export type TailwindBgRepeat =
+  | "repeat" | "no-repeat" | "repeat-x" | "repeat-y" | "repeat-round" | "repeat-space";
+export type TailwindBgAttachment = "fixed" | "local" | "scroll";
+export type TailwindBgClip = "clip-border" | "clip-padding" | "clip-content" | "clip-text";
+export type TailwindBgOrigin = "origin-border" | "origin-padding" | "origin-content";
+
 // Text size (fontSize family). CLOSED (C-02): custom sizes from FluentCustomFontSize.
 export type TailwindTextSize =
   | "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl"
@@ -150,8 +161,11 @@ export type TailwindFlex = "1" | "auto" | "initial" | "none";
 // Overflow
 export type TailwindOverflow = "auto" | "hidden" | "clip" | "visible" | "scroll";
 
-// Object fit
+// Object fit and position
 export type TailwindObjectFit = "contain" | "cover" | "fill" | "none" | "scale-down";
+export type TailwindObjectPosition =
+  | "top" | "bottom" | "left" | "right" | "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
+  | `[${string}]`;
 
 // Display
 export type TailwindDisplay =
@@ -171,8 +185,9 @@ export type TailwindAlignSelf = "auto" | "start" | "end" | "center" | "stretch" 
 // Column span — bare numbers beyond 12 via `${number}`; arbitrary via `[…]`.
 export type TailwindColSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "full" | `${number}` | `[${string}]`;
 
-// Aspect ratio
-export type TailwindAspect = "auto" | "square" | "video";
+// Aspect ratio: keywords from the vocab, any `w/h` ratio (`aspect-4/5`), or `[…]`.
+export type TailwindAspectKeyword = "auto" | "square" | "video";
+export type TailwindAspect = TailwindAspectKeyword | `${number}/${number}` | `[${string}]`;
 
 // Transitions & Animation
 export type TailwindTransition = "none" | "all" | "colors" | "opacity" | "shadow" | "transform";
@@ -234,7 +249,7 @@ export type TailwindState =
   | "disabled" | "enabled" | "checked" | "indeterminate" | "required" | "invalid" | "valid"
   | "first" | "last" | "odd" | "even" | "empty"
   | "first-of-type" | "last-of-type"
-  | "placeholder" | "selection" | "marker" | "file"
+  | "placeholder" | "selection" | "marker" | "file" | "backdrop"
   | "before" | "after"
   | "dark"
   // v4 (C-06): new states + the `not-*` negation, `supports-[…]` arms

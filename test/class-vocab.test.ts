@@ -88,6 +88,13 @@ describe("emitClasses — per-shape exact output", () => {
     // merged list / outline absorb
     ["merged list type", "list", ["disc"], ["list-disc"]],
     ["merged list position", "list", ["inside"], ["list-inside"]],
+    // merged bg (color | size | position | repeat | attachment | clip | origin) and object (fit | position)
+    ["merged bg size", "bg", ["cover"], ["bg-cover"]],
+    ["merged bg position", "bg", ["top-left"], ["bg-top-left"]],
+    ["merged bg repeat", "bg", ["no-repeat"], ["bg-no-repeat"]],
+    ["merged bg clip", "bg", ["clip-text"], ["bg-clip-text"]],
+    ["merged object position", "object", ["top"], ["object-top"]],
+    ["aspect ratio", "aspect", ["4/5"], ["aspect-4/5"]],
     ["outline hidden (absorbed)", "outline", ["hidden"], ["outline-hidden"]],
     // escape-hatch gap fills
     ["prefix appearance", "appearance", ["none"], ["appearance-none"]],
