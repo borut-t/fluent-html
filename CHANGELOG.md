@@ -4,7 +4,10 @@ All notable changes to Fluent HTML will be documented in this file.
 
 ## [Unreleased] - Background, object-position, aspect-ratio and backdrop vocabulary
 
-Additive only: every call that compiled before still compiles and renders the same class.
+Additive for calls: every call that compiled before still compiles and renders the same class.
+One type-level change: `TailwindAspect` was a closed three-keyword union and now carries ratio
+and `[…]` arms, so an exhaustive `switch` over it (`default: const _x: never = a`) stops
+compiling. Point those switches at the new `TailwindAspectKeyword`.
 
 ### ✨ Added
 
@@ -16,8 +19,9 @@ Additive only: every call that compiled before still compiles and renders the sa
   hints through the existing `[…]` arm: `.bg("[length:1rem]")`, `.bg("[position:right_1rem_center]")`.
 - **`.object()` takes positions** (`top`, `center`, `bottom-right`, …, plus `[…]`) beside the fit
   keywords. New union `TailwindObjectPosition`.
-- **`.aspect()` takes any `w/h` ratio** (`"4/5"` → `aspect-4/5`) and `[…]`. `TailwindAspect` now
-  carries both; the keywords alone are `TailwindAspectKeyword`.
+- **`.aspect()` takes integer `w/h` ratios** (`"4/5"` → `aspect-4/5`) and `[…]`, which also covers
+  decimal ratios (`"[1.91/1]"`). `TailwindAspect` now carries both; the keywords alone are
+  `TailwindAspectKeyword`.
 - **`backdrop` joins `TailwindState`**, so `.variant("backdrop", { bg: "black/50" })` styles a
   `<dialog>`'s `::backdrop` without an arbitrary selector.
 

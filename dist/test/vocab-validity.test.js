@@ -57,7 +57,7 @@ const ORACLE_ARGS = {
     minW: [["0"]],
     maxH: [["screen"]],
     minH: [["screen"], ["px", "180"]],
-    aspect: [["video"], ["square"], ["4/5"], ["[4/5]"]],
+    aspect: [["video"], ["square"], ["4/5"], ["16/9"], ["0/1"], ["[4/5]"], ["[1.91/1]"]],
     // Flexbox (merged .flex())
     flex: [[], ["1"], ["auto"], ["col"], ["row-reverse"], ["wrap"]],
     justify: [["between"], ["center"]],
@@ -269,6 +269,14 @@ describe("vocab validity oracle — every emission compiles in Tailwind", () => 
             }
         });
     }
+    // TailwindAspect's ratio arm is `${bigint}/${bigint}`: these pin why. A
+    // decimal is rejected by the type and by Tailwind alike; a negative passes
+    // the type but compiles to nothing, the one gap the arm can't close.
+    it("aspect ratios outside the integer arm don't compile", () => {
+        for (const cls of ["aspect-1.91/1", "aspect--1/2"]) {
+            assert.equal(design.candidatesToCss([cls])[0], null, `"${cls}" now compiles in Tailwind — revisit TailwindAspect's ratio arm`);
+        }
+    });
     it("KNOWN_NON_TAILWIND rows really are invisible to Tailwind", () => {
         for (const [method, reason] of KNOWN_NON_TAILWIND) {
             const def = classVocab.find((d) => d.method === method);

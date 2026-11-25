@@ -113,7 +113,7 @@ The prefix rule has a few deliberate exceptions — worth knowing when deriving 
 .h("screen")  .h("64")              // h-screen, h-64
 .maxW("md")  .maxH("screen")        // max-w-md, max-h-screen
 .minW("0")   .minH("screen")        // min-w-0, min-h-screen
-.aspect("video")  .aspect("4/5")    // aspect-video, aspect-4/5 (any w/h ratio; [..] for the rest)
+.aspect("video")  .aspect("4/5")    // aspect-video, aspect-4/5 (integer w/h ratios; [..] for decimals and the rest)
 ```
 
 ### Arbitrary Value Unit Overloads

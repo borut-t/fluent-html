@@ -59,7 +59,7 @@ are closed unions: a typo or an off-scale value is a compile error.
 | 4 | `.font(value)` | 10157 | 484 | Merged `font-*`: weight or family |
 | 5 | `.flex(value?)` | 9843 | 487 | Flex container (bare), shorthand (`"1"`), direction (`"col"`), or wrap |
 | 6 | `.border(...)` | 9248 | 423 | Merged: width, style, or color; all sides, one side, or `(side, value)` |
-| 7 | `.bg(color)` | 8293 | 441 | Background color token |
+| 7 | `.bg(value)` | 8293 | 441 | Merged `bg-*`: color token, or size, position, repeat, attachment, clip, origin |
 | 8 | `.rounded(value?)` | 6552 | 306 | Border radius — all corners, or `(corner, size)` |
 | 9 | `.setClass(cls)` | 5961 | 21 | **Escape hatch** — replaces the class attribute; styling through it is lint-blocked (see below) |
 | 10 | `.gap(value)` | 5596 | 286 | Flex/grid gap — both axes or `("x"\|"y", value)` |

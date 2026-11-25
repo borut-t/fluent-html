@@ -185,9 +185,11 @@ export type TailwindAlignSelf = "auto" | "start" | "end" | "center" | "stretch" 
 // Column span — bare numbers beyond 12 via `${number}`; arbitrary via `[…]`.
 export type TailwindColSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "full" | `${number}` | `[${string}]`;
 
-// Aspect ratio: keywords from the vocab, any `w/h` ratio (`aspect-4/5`), or `[…]`.
+// Aspect ratio: keywords from the vocab, an integer `w/h` ratio (`aspect-4/5`), or `[…]`.
+// `${bigint}` keeps out decimals, exponents and whitespace, which Tailwind doesn't compile;
+// a negative (`-1/2`) still type-checks. Decimal ratios go through `[…]`: `[1.91/1]`.
 export type TailwindAspectKeyword = "auto" | "square" | "video";
-export type TailwindAspect = TailwindAspectKeyword | `${number}/${number}` | `[${string}]`;
+export type TailwindAspect = TailwindAspectKeyword | `${bigint}/${bigint}` | `[${string}]`;
 
 // Transitions & Animation
 export type TailwindTransition = "none" | "all" | "colors" | "opacity" | "shadow" | "transform";

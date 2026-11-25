@@ -17,6 +17,10 @@ import {
   type VariantStyleObject,
 } from "../../src/index.js";
 import { assetUrl } from "../../src/htmx.js";
+import type {
+  TailwindBgSize, TailwindBgPosition, TailwindBgRepeat, TailwindBgAttachment, TailwindBgClip, TailwindBgOrigin,
+  TailwindObjectPosition, TailwindAspect, TailwindAspectKeyword,
+} from "../../src/core/index.js";
 
 const ids = defineIds(["card"] as const);
 
@@ -373,6 +377,11 @@ Div().object("cover").object("top").object("[50%_15%]");
 Div().aspect("video").aspect("4/5").aspect("[4/5]");
 Div().hover({ bg: "cover", object: "top", aspect: "16/9" });
 Div().variant("backdrop", { bg: "black/50" });
+// The new unions are public through the ./core subpath.
+expectType<[TailwindBgSize, TailwindBgPosition, TailwindBgRepeat, TailwindBgAttachment, TailwindBgClip, TailwindBgOrigin]>(
+  ["cover", "top-left", "no-repeat", "fixed", "clip-text", "origin-padding"],
+);
+expectType<[TailwindObjectPosition, TailwindAspect, TailwindAspectKeyword]>(["top", "16/9", "video"]);
 Div().outline("hidden");
 Div().bgLinear("to-r").bgLinear(45, "oklch");
 Div().px("4").mx("auto").mt("2").pt("px", 12);
@@ -396,6 +405,12 @@ Div().bg("middle");
 Div().object("stretch");
 // @ts-expect-error — a ratio is "w/h"; a bare word needs the keywords or [..]
 Div().aspect("wide");
+// @ts-expect-error — ratios are integers; Tailwind drops aspect-1.91/1, so decimals need [..]
+Div().aspect("1.91/1");
+// @ts-expect-error — a padded ratio would split into "aspect-" and "4/5"
+Div().aspect(" 4/5");
+// @ts-expect-error — exponent notation is not an integer ratio
+Div().aspect("1e2/3");
 // @ts-expect-error — margin-only "auto" is rejected on padding shorthands
 Div().px("auto");
 // @ts-expect-error — directional shorthands take the spacing scale, not width keywords
